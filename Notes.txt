@@ -1,0 +1,60 @@
+Protractor Notes
+
+Instalação: npm install protractor
+
+Estrutura do Protractor:
+ ├─ e2e/
+ |   ├─ configs/
+ |   ├─ page_objects/
+ |   └─ specs/
+ |
+ ├─ .gitignore
+ ├─ package.json
+ └─ package-lock.json
+ - protractor.conf.js: Definir em qual navegador os testes vão rodar, definir relatórios e quais testes vão ser rodados.
+ Configs uteis:
+  - capabilities: Definir o browser que vai ser utilizado nos testes.
+  - params: Definir um parametro pronto seja ele um usuario/senha ou um processo. Exemplo: process.env.USUARIO
+  Para invocar o params digite: browser.params.$NomeDoParametro
+Dir specs: é onde os nossos testes são armazenados.
+Dir page_objects: é onde fica os métodos que os testes vão consumir. 
+
+O protractor utiliza a sintaxe de testes do jasmine.
+Exemplos:
+ - describe: Descreve as funcionalidades que vão ser testadas.
+ - it: Lógica dos testes.
+ - expect: Resposta esperada da aplicação.
+
+Localizadores = {
+    By.id | By.name | By.css | By.buttonText
+    By.cssContainingText | By.model | by.binding
+} 
+
+Verificações = {
+    var foo = element(by.id("pet_id"));
+
+    expect(foo.getText()).toEqual("some text");
+
+    expect(foo.getText()).toContain("some text");
+
+    expect(foo.isDisplayed()).toBe(true);
+
+    expect(foo.getText()).not.toContain("some text");
+} 
+
+Ações = {
+    var foo = element(by.id("pet_id"));
+
+    Navegação: browser.get(url)
+    Clique: foo.click()
+    Preenchimento de campo: foo.sendKeys("")
+    Limpeza de campo: foo.clear()
+    Atualizar a tela: browser.refresh()
+    Pegar o atributo: foo.getAttribute()
+}
+
+Dentro do describe pode ser colocado ações à serem executadas como: beforeEach, beforeAll, afterEach, afterAll.
+Exemplos: Limpar cookies de sessão, Acessar uma url padrão e etc...
+
+beforeEach(() => browser.get('http://localhost:3000/'))
+afterEach(() => browser.driver.manage().deleteAllCookies())
